@@ -8,7 +8,17 @@ var api = (function () {
 
   const init = () => {
     addSubmitEvent();
+    // getStoredCities();
   };
+
+  const getStoredCities = () => {
+    let cities = JSON.parse(localStorage.getItem('city')) || [];
+    console.log(cities);
+    historyData.push(cities);
+    for (let i = 0; i < cities.length; i++) {
+      appendInHistory(cities[i]);
+    }
+  }
 
   const showSpinner = () => {
     $spinner.removeClass('d-none');
@@ -47,6 +57,7 @@ var api = (function () {
     }
     historyData.push(city);
     $history.append('<button type="button" class="btn btn-secondary btn-sm history-button" value="' + city + '">' + city + '</button>');
+    localStorage.setItem('city', JSON.stringify(historyData));
     addHistoryButtonEvent();
   };
 
